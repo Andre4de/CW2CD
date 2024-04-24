@@ -7,7 +7,15 @@ public class ReversiController implements IController {
 	int player;
 	int x;
 	int y;
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	int l = 0;
+	int m = 0;
+	int n = 0;
 	int count = 0;
+	int dirX = 0;
+	int dirY = 0;
 	
 
 	
@@ -71,10 +79,10 @@ public class ReversiController implements IController {
 				System.out.println("You already have a counter in this square.");
 				return;
 				}
-			count = 0;
-			int i = 0;
-			int j = 0;
-//			outerloop:
+			
+			
+			
+
 			for(i = x - 1; i < x + 2; i++) {
 				
 				for(j = y - 1; j < y + 2; j++) {
@@ -87,11 +95,7 @@ public class ReversiController implements IController {
 //					System.out.println("(Scan: )" + i + ":" + j + "=" + model.getBoardContents(i, j));
 					if(i == x && j == y)
 					continue;
-					if(model.getBoardContents(i, j) == 1) {
-						System.out.println("(Found it)" + i + ":" + j +  "=" + "White");
-				
 
-					}
 					//This if statement scans the perimeter of selecteed square and looks for counter of opposite colour.
 					if(model.getBoardContents(i, j) == 2) {
 						System.out.println("(Found it): " + i + ":" + j +  "=" + "Black");
@@ -100,35 +104,35 @@ public class ReversiController implements IController {
 						int dirX = i - x;
 						int dirY = j - y;
 						
-						int k = i;
-						int l = j;
+						k = i;
+						l = j;
 						
-						int m = i;
-						int n = j;
+						m = i;
+						n = j;
 						
-						System.out.println("Direction = " + dirX + ":" + dirY);
+						
 						whileloop:
 						while((k > 0 || k <= 7) || (l > 0 || l <= 7)) {
 							
 							k += dirX;
 							l += dirY;
 							
-							System.out.println("While: " + k + ":" + l);
+							
 							
 							if((k < 0 || k > 7) || (l < 0 || l > 7))
 							break;
 							
-							System.out.println("check val m n: " + m + ":" + n);
+							
 							if(model.getBoardContents(k, l) == 1)
 							{
-								System.out.println("You are able to play here.");
+								
 								while((m > 0 || m <= 7) || (n > 0 || n <= 7)) {
 									model.setBoardContents(m, n, 1);
 									count++;
 									
 									m += dirX;
 									n += dirY;
-									System.out.println("While2: " + k + ":" + l);
+									
 									
 									if(model.getBoardContents(m, n) == 1) {
 										model.setBoardContents(x, y, 1);
@@ -142,7 +146,7 @@ public class ReversiController implements IController {
 							}
 						}
 						System.out.println("White Count = " + count);
-						System.out.println("You cannot select a square here.");
+						
 
 						
 
@@ -167,10 +171,6 @@ public class ReversiController implements IController {
 				return;
 				}	
 		//this for loop scans the perimeter of the selected square, looks for 8 squares maximum.
-		count = 0;
-		int i = 0;
-		int j = 0;
-//		outerloop:
 		for(i = x - 1; i < x + 2; i++) {
 			
 			for(j = y - 1; j < y + 2; j++) {
@@ -180,50 +180,46 @@ public class ReversiController implements IController {
 					continue;
 				
 				
-//				System.out.println("(Scan: )" + i + ":" + j + "=" + model.getBoardContents(i, j));
+				//System.out.println("(Scan: )" + i + ":" + j + "=" + model.getBoardContents(i, j));
 				if(i == x && j == y)
 				continue;
-				if(model.getBoardContents(i, j) == 2) {
-					System.out.println("(Found it)" + i + ":" + j +  "=" + "Black");
-			
 
-				}
 				//This if statement scans the perimeter of selecteed square and looks for counter of opposite colour.
 				if(model.getBoardContents(i, j) == 1) {
-					System.out.println("(Found it): " + i + ":" + j +  "=" + "White");
+				
 					
 				
-					int dirX = i - x;
-					int dirY = j - y;
+					dirX = i - x;
+					dirY = j - y;
 					
-					int k = i;
-					int l = j;
+					k = i;
+					l = j;
 					
-					int m = i;
-					int n = j;
+					m = i;
+					n = j;
 					
-					System.out.println("Direction = " + dirX + ":" + dirY);
+				
 					whileloop2:
 					while((k > 0 || k <= 7) || (l > 0 || l <= 7)) {
 						
 						k += dirX;
 						l += dirY;
 						
-						System.out.println("While: " + k + ":" + l);
+					
 						
 						if((k < 0 || k > 7) || (l < 0 || l > 7))
 						break;
 						
-						System.out.println("check val m n: " + m + ":" + n);
+						
 						if(model.getBoardContents(k, l) == 2)
 						{
-							System.out.println("You are able to play here.");
+							
 							while((m > 0 || m <= 7) || (n > 0 || n <= 7)) {
 								model.setBoardContents(m, n, 2);
 								count++;
 								m += dirX;
 								n += dirY;
-								System.out.println("While2: " + k + ":" + l);
+								
 								
 								if(model.getBoardContents(m, n) == 2) {
 									model.setBoardContents(x, y, 2);
@@ -238,7 +234,7 @@ public class ReversiController implements IController {
 						}
 					}
 					System.out.println("Black Count = " + count);
-					System.out.println("You cannot select a square here.");
+					
 
 					
 
