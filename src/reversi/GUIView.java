@@ -84,6 +84,16 @@ public class GUIView implements IView
 				panel1.add(button1);
 				panel1.add(button2);
 				
+				button1.addActionListener(new ActionListener() 
+				{
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						
+						controller.doAutomatedMove(1);
+						
+					}
+				});
+				
 				Board1 = new drawSqr[height][width];
 				
 				for(int i = 0; i < height; i++)
@@ -96,6 +106,7 @@ public class GUIView implements IView
 						
 						Board1[i][j] = new drawSqr(100, 100,
 								1, Color.BLACK,Color.GREEN);
+						Board1[i][j].drawGreen();
 						panel2.add(Board1[i][j]);
 						
 						Board1[i][j].addActionListener(new ActionListener() 
@@ -131,6 +142,7 @@ public class GUIView implements IView
 				
 				button2.addActionListener(new ActionListener() 
 				{
+					
 				    @Override
 	                public void actionPerformed(ActionEvent e)
 				    {
@@ -141,6 +153,7 @@ public class GUIView implements IView
 	                   
 
 				    }
+				    
 				});
 				
 				
@@ -166,7 +179,18 @@ public class GUIView implements IView
 				JPanel panel4 = new JPanel();
 				player2lbl = new JLabel("Player 2");
 			
-
+				button3.addActionListener(new ActionListener() 
+				{
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						
+						System.out.println("FSDLKNSDLKFBSDKSBSDDV;A");
+						System.out.println(model.getPlayer());
+						controller.doAutomatedMove(2);
+						
+						
+					}
+				});
 			
 				// manipulating objects for GUI
 				Player2_Frame = new JFrame();
