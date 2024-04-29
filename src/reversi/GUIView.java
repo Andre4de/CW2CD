@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
+
 
 
 
@@ -27,21 +27,19 @@ public class GUIView implements IView
 {
 	
 
-	public GUIView()
-	{
-	}
+	
 	
 	IModel model;
 	IController controller;
 
 	//player 1 objects
 	JFrame Player1_Frame;
-	JLabel player1lbl;
+	JLabel player1lbl = new JLabel("White player – choose where to put your piece");
 	drawSqr[][] Board1;
 	
 	//player 2 objects
 	JFrame Player2_Frame;
-	JLabel player2lbl;
+	JLabel player2lbl = new JLabel("Black player – not your turn");
 	drawSqr[][] Board2;
 	
 	int start = 0;
@@ -70,7 +68,7 @@ public class GUIView implements IView
 				JButton button2 = new JButton("Restart");
 				JPanel panel1 = new JPanel();
 				JPanel panel2 = new JPanel();
-				JLabel player1lbl = new JLabel("Player 1");
+//				JLabel player1lbl = new JLabel("White player – choose where to put your piece");
 				Player1_Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				Player1_Frame.setTitle("Player 1");
 				
@@ -89,6 +87,7 @@ public class GUIView implements IView
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						
+						if(model.getPlayer() == 1)
 						controller.doAutomatedMove(1);
 						
 					}
@@ -127,7 +126,7 @@ public class GUIView implements IView
 						    	}
 						    	
 						    	controller.squareSelected(1, row, col);
-			                    feedbackToUser(1, " " + "clicked Button at coordinates: (" + row + ", " + col + ")");
+			              
 			                    
 			                    System.out.println("Value of current square = " + model.getBoardContents(row, col));
 			                   
@@ -177,15 +176,14 @@ public class GUIView implements IView
 				JButton button4 = new JButton("Restart");
 				JPanel panel3 = new JPanel();
 				JPanel panel4 = new JPanel();
-				player2lbl = new JLabel("Player 2");
+//				player2lbl = new JLabel("Black player – not your turn");
 			
 				button3.addActionListener(new ActionListener() 
 				{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						
-						System.out.println("FSDLKNSDLKFBSDKSBSDDV;A");
-						System.out.println(model.getPlayer());
+						if(model.getPlayer() == 2)
 						controller.doAutomatedMove(2);
 						
 						
@@ -223,7 +221,7 @@ public class GUIView implements IView
 						    @Override
 			                public void actionPerformed(ActionEvent e)
 						    {
-						    	System.out.println("Player 2 action listener: " + model.getPlayer());
+						    	System.out.println("Player 2 clicked square: " + row + ";" + col);
 						    	if(model.getPlayer() == 1) {
 						    		System.out.println("It is not your turn!");
 						    		return;
@@ -238,7 +236,7 @@ public class GUIView implements IView
 						    	}
 						    	
 			                    controller.squareSelected(2, row, col);
-			                    feedbackToUser(1, " " + "clicked Button at coordinates: (" + row + ", " + col + ")");
+
 			                    model.getBoardContents(row, col);
 			                    
 			                    System.out.println("Value of current square = " + model.getBoardContents(row, col));
@@ -342,7 +340,23 @@ public class GUIView implements IView
 			}
 		}
 		
-
+		if(model.getPlayer() == 1) {
+			feedbackToUser(1, "White player – choose where to put your piece.");
+			feedbackToUser(2, "Black player – not your turn");
+//			player1lbl.setText("White player – choose where to put your piece.");
+//			player2lbl.setText("Black player – not your turn");
+			
+		}
+		
+		if(model.getPlayer() == 2) {
+			feedbackToUser(2, "Black player – choose where to put your piece");
+			feedbackToUser(1, "White player – not your turn");
+//			player2lbl.setText("Black player – choose where to put your piece");
+//			player1lbl.setText("White player – not your turn");
+			
+		}
+		
+		 
 				
 
 			
@@ -352,7 +366,20 @@ public class GUIView implements IView
 	public void feedbackToUser(int player, String message) {
 		// TODO Auto-generated method stub
 //		String plyr = "Player ";
-		System.out.println("player " + player +  message);
+//		System.out.println("player " + player +  message);
+		if(player == 1) {
+			
+			player1lbl.setText(message);
+			return;
+			
+		}
+		
+		if(player == 2) {
+			
+			player2lbl.setText(message);
+			return;
+			
+		}
 	}
 	
 

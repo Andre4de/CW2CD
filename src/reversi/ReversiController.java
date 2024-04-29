@@ -15,7 +15,8 @@ public class ReversiController implements IController {
 	int l = 0;
 	int m = 0;
 	int n = 0;
-	
+	boolean one = false;
+	boolean two = false;
 	int dirX = 0;
 	int dirY = 0;
 	int highX = 0;
@@ -51,7 +52,10 @@ public class ReversiController implements IController {
 		
 		model.setPlayer(1);
 		
+		model.setFinished(false);
+		
 		view.refreshView();
+//		update();
 		
 	
 		
@@ -63,7 +67,320 @@ public class ReversiController implements IController {
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		view.refreshView();		
+		int opp = 0;
+		int black = 0;
+		int white = 0;
+		
+		if(model.getPlayer() == 1)
+			opp = 2;
+		
+		if(model.getPlayer() == 2)
+			opp = 1;
+		
+		view.refreshView();
+		
+		if(model.hasFinished() == true) {
+			for(int i = 0; i < model.getBoardHeight(); i++) {
+				
+				for(int j = 0; j < model.getBoardWidth(); j++) {
+					
+					if(model.getBoardContents(i, j) == 1)
+						white++;
+					
+					if(model.getBoardContents(i, j) == 2)
+						black++;
+					
+				}
+			}
+			
+			if(white > black) {
+				System.out.println("White has won");
+				view.feedbackToUser(1, "White won. White " + white + " to Black " + black + "." +  "Reset game to replay.");
+				view.feedbackToUser(2, "White won. White " + white + " to Black " + black + "." +  "Reset game to replay.");
+			}
+			
+			if(white < black) {
+				System.out.println("Black has won");
+			view.feedbackToUser(1, "Black won. Black " + black + " to White " + white + "." +  "Reset game to replay.");
+			view.feedbackToUser(2, "Black won. Black " + black + " to White " + white + "." +  "Reset game to replay.");
+			}
+			
+			if(white == black) {
+				System.out.println("It is a draw!");
+			view.feedbackToUser(1, "Draw. Both players ended with " + white + "pieces. Reset game to replay.");
+			view.feedbackToUser(2, "Draw. Both players ended with " + black + "pieces. Reset game to replay.");
+			}
+			
+			return;
+		}
+		
+	outer:	
+	for(int i = 0; i < model.getBoardHeight(); i++) {
+			
+			for(int j = 0; j < model.getBoardWidth(); j++) {
+				
+				if(model.getBoardContents(i, j) != 0) {
+					model.setFinished(true);
+					
+
+					}
+				if(model.getBoardContents(i, j) == 0) {
+					model.setFinished(false);
+					System.out.println("Model has said there is a green square");
+					break outer;
+				}
+					
+			}
+		}
+	
+		
+		if(model.hasFinished() == true) {
+		System.out.println("The game has finished!");
+		
+		for(int i = 0; i < model.getBoardHeight(); i++) {
+			
+			for(int j = 0; j < model.getBoardWidth(); j++) {
+				
+				if(model.getBoardContents(i, j) == 1)
+					white++;
+				
+				if(model.getBoardContents(i, j) == 2)
+					black++;
+				
+			}
+		}
+		
+		if(white > black) {
+			System.out.println("White has won");
+			view.feedbackToUser(1, "White won. White " + white + " to Black " + black + "." +  "Reset game to replay.");
+			view.feedbackToUser(2, "White won. White " + white + " to Black " + black + "." +  "Reset game to replay.");
+		}
+		
+		if(white < black) {
+			System.out.println("Black has won");
+		view.feedbackToUser(1, "Black won. Black " + black + " to White " + white + "." +  "Reset game to replay.");
+		view.feedbackToUser(2, "Black won. Black " + black + " to White " + white + "." +  "Reset game to replay.");
+		}
+		
+		if(white == black) {
+			System.out.println("It is a draw!");
+		view.feedbackToUser(1, "Draw. Both players ended with " + white + "pieces. Reset game to replay.");
+		view.feedbackToUser(2, "Draw. Both players ended with " + black + "pieces. Reset game to replay.");
+		}
+		
+		return;
+		}
+		
+	
+		
+		
+	
+		
+		
+		
+		if(model.getPlayer() == 1) {
+		
+		for(int i = 0; i < model.getBoardHeight(); i++) {
+			
+			for(int j = 0; j < model.getBoardWidth(); j++) {
+				
+//				System.out.println("Current square = " + i + ":" + j);
+				
+				for(int a = i - 1; a < i + 2; a++) {
+					
+					for(int b = j - 1; b < j + 2; b++) {
+						
+						if((a < 0 || a > 7) || (b < 0 || b > 7))
+							continue;
+						
+						if(a == i && b == j) {
+							continue;
+						}
+						
+						
+						else {
+							
+//							System.out.println(a + ":" + b);
+						}
+						
+						if(model.getBoardContents(a, b) == opp) {
+//							System.out.println(a + ":" + b + " = " + opp);
+							
+							int dirX = a - i;
+							int dirY = b - j;
+							
+							
+							k = i;
+							l = j;
+							
+							
+								while((k > 0 || k <= 7) || (l > 0 || l <= 7)) {
+									
+									k += dirX;
+									l += dirY;
+									
+									
+									
+									if((k < 0 || k > 7) || (l < 0 || l > 7))
+									break;
+									
+									
+									if(model.getBoardContents(k, l) == model.getPlayer())
+									{
+										System.out.println("Player"  + model.getPlayer() +  " is able to play, no need to switch player.");
+										one = false;
+										return;
+									}
+									
+									}
+							
+							
+										
+							
+						}
+							
+						
+						
+						
+					}
+					
+					
+					}
+				
+				
+			}
+		}
+		one = true;
+		System.out.println("Player" + model.getPlayer() + " is not able to play, switching player.");
+		model.setPlayer(2);
+		view.feedbackToUser(2, "Black player – choose where to put your piece");
+		view.feedbackToUser(1, "White player – not your turn");
+
+		return;
+		}
+		
+		if(model.getPlayer() == 2) {
+		
+		for(int i = 0; i < model.getBoardHeight(); i++) {
+			
+			for(int j = 0; j < model.getBoardWidth(); j++) {
+				
+//				System.out.println("Current square = " + i + ":" + j);
+				
+				for(int a = i - 1; a < i + 2; a++) {
+					
+					for(int b = j - 1; b < j + 2; b++) {
+						
+						if((a < 0 || a > 7) || (b < 0 || b > 7))
+							continue;
+						
+						if(a == i && b == j) {
+							continue;
+						}
+						
+						
+//						else {
+//							
+////							System.out.println(a + ":" + b);
+//						}
+						
+						if(model.getBoardContents(a, b) == opp) {
+//							System.out.println(a + ":" + b + " = " + opp);
+							
+							int dirX = a - i;
+							int dirY = b - j;
+							
+							
+							k = i;
+							l = j;
+							
+							
+								while((k > 0 || k <= 7) || (l > 0 || l <= 7)) {
+									
+									k += dirX;
+									l += dirY;
+									
+									
+									
+									if((k < 0 || k > 7) || (l < 0 || l > 7))
+									break;
+									
+									
+									if(model.getBoardContents(k, l) == model.getPlayer())
+									{
+										System.out.println("Player"  + model.getPlayer() +  " is able to play, no need to switch player.");
+										two = false;
+										return;
+									}
+									
+									}
+							
+							
+										
+							
+						}
+							
+						
+						
+						
+					}
+					
+					
+					}
+				
+				
+			}
+		}
+		two = true;
+		System.out.println("Player" + model.getPlayer() + " is not able to play, switching player.");
+		model.setPlayer(1);
+		view.feedbackToUser(1, "White player – choose where to put your piece.");
+		view.feedbackToUser(2, "Black player – not your turn");
+
+		return;
+		}
+		
+	
+		
+		
+		if(one == true && two == true)
+			model.setFinished(true);
+		System.out.println("value of has finished: " + model.hasFinished());
+		
+		if(model.hasFinished() == true) {
+			for(int i = 0; i < model.getBoardHeight(); i++) {
+				
+				for(int j = 0; j < model.getBoardWidth(); j++) {
+					
+					if(model.getBoardContents(i, j) == 1)
+						white++;
+					
+					if(model.getBoardContents(i, j) == 2)
+						black++;
+					
+				}
+			}
+			
+			if(white > black) {
+			
+				System.out.println("White has won");
+				view.feedbackToUser(1, "White won. White " + white + " to Black " + black + "." +  "Reset game to replay.");
+				view.feedbackToUser(2, "White won. White " + white + " to Black " + black + "." +  "Reset game to replay.");
+			}	
+			
+			if(white < black) {
+				System.out.println("Black has won");
+			view.feedbackToUser(1, "Black won. Black " + black + " to White " + white + "." +  "Reset game to replay.");
+			view.feedbackToUser(1, "Black won. Black " + black + " to White " + white + "." +  "Reset game to replay.");
+			}
+			if(white == black) {
+				System.out.println("It is a draw!");
+			view.feedbackToUser(1, "Draw. Both players ended with " + white + "pieces. Reset game to replay.");
+			view.feedbackToUser(2, "Draw. Both players ended with " + black + "pieces. Reset game to replay.");
+			}
+			
+			return;
+		}
 		
 		
 		
@@ -76,11 +393,11 @@ public class ReversiController implements IController {
 		this.y = y;
 		int count = 0;
 		
-		System.out.println("Am i being executed?");
+		
 		
 		if(player == 1)
 		{
-			System.out.println("Is it player 1?");
+			
 			if(model.getBoardContents(x, y) == 1) {
 				System.out.println("You already have a counter in this square.");
 				return;
@@ -104,7 +421,7 @@ public class ReversiController implements IController {
 
 					//This if statement scans the perimeter of selecteed square and looks for counter of opposite colour.
 					if(model.getBoardContents(i, j) == 2) {
-						System.out.println("(Found it): " + i + ":" + j +  "=" + "Black");
+						
 						
 					
 						int dirX = i - x;
@@ -143,8 +460,7 @@ public class ReversiController implements IController {
 									
 									if(model.getBoardContents(m, n) == 1) {
 										model.setBoardContents(x, y, 1);
-										update();
-										model.setPlayer(2); 
+										 
 										break whileloop;
 									}
 								}
@@ -152,6 +468,9 @@ public class ReversiController implements IController {
 								
 							}
 						}
+						model.setPlayer(2);
+						update();
+						
 						System.out.println("White Count = " + count);
 						
 
@@ -173,7 +492,7 @@ public class ReversiController implements IController {
 		
 		if(player == 2)
 		{
-			System.out.println("Is it player 2?");
+			
 			if(model.getBoardContents(x, y) == 2) {
 				System.out.println("You already have a counter in this square.");
 				return;
@@ -232,8 +551,7 @@ public class ReversiController implements IController {
 								if(model.getBoardContents(m, n) == 2) {
 									model.setBoardContents(x, y, 2);
 									
-									update();
-									model.setPlayer(1);
+									
 									break whileloop2;
 								}
 							}
@@ -241,6 +559,9 @@ public class ReversiController implements IController {
 
 						}
 					}
+					
+					model.setPlayer(1);
+					update();
 					System.out.println("Black Count = " + count);
 					
 
@@ -263,20 +584,12 @@ public class ReversiController implements IController {
 		
 	}
 	
-	public void capture() {
-		
-	}
-
 	@Override
 	public void doAutomatedMove(int player) {
 		// TODO Auto-generated method stub
 	int opp = 0;
 	int count = 0;
-//	int countme = 0;
-//	int a = 0;
-//	int b = 0;
-//	int i = 0;
-//	int j = 0;
+
 	if(player == 1)
 		opp = 2;
 	
@@ -312,8 +625,7 @@ public class ReversiController implements IController {
 
 						//This if statement scans the perimeter of selecteed square and looks for counter of opposite colour.
 						if(model.getBoardContents(i, j) == opp) {
-						System.out.println(a + ":" + b + "= current square");
-						System.out.println(i + ":" + j + "=" + model.getBoardContents(i, j));	
+						
 							
 							int dirX = i - a;
 							int dirY = j - b;
@@ -346,16 +658,16 @@ public class ReversiController implements IController {
 //								System.out.println("direction: " + model.getBoardContents(k, l));
 								
 								
-								System.out.println(k + ":" + l + "=" + model.getBoardContents(k, l));
+//								System.out.println(k + ":" + l + "=" + model.getBoardContents(k, l));
 								if(model.getBoardContents(k, l) == player)
 								{
 									tmp2 = tmp1;
-									System.out.println("the temps:" + "tmp1 = " + " " +  tmp1 + " " + "count = " + " " + count);
+									
 									if(tmp2 > count) {
 										count = tmp2;
 										highX = a;
 										highY = b;
-										System.out.println("Current = " + highX + ":" + highY);
+										
 										break whileloop;
 										
 									}
@@ -384,7 +696,7 @@ public class ReversiController implements IController {
 			 
 		 }
 	 }
-		System.out.println("Best square for player:" + model.getPlayer() + "=" + highX + ":" + highY);
+//		System.out.println("Best square for player:" + model.getPlayer() + "=" + highX + ":" + highY);
 		if(player == 1) {
 			System.out.println("Player 1");
 			squareSelected(1, highX, highY);
