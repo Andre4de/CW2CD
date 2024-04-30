@@ -87,7 +87,7 @@ public class GUIView implements IView
 					public void actionPerformed(ActionEvent e) {
 						
 
-						controller.doAutomatedMove(model.getPlayer());
+						controller.doAutomatedMove(1);
 						
 					}
 				});
@@ -178,7 +178,7 @@ public class GUIView implements IView
 					public void actionPerformed(ActionEvent e) {
 						
 
-						controller.doAutomatedMove(model.getPlayer());
+						controller.doAutomatedMove(2);
 						
 						
 					}
@@ -519,5 +519,3 @@ public class GUIView implements IView
 	
 
 	
-
-
