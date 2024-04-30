@@ -68,7 +68,6 @@ public class GUIView implements IView
 				JButton button2 = new JButton("Restart");
 				JPanel panel1 = new JPanel();
 				JPanel panel2 = new JPanel();
-//				JLabel player1lbl = new JLabel("White player – choose where to put your piece");
 				Player1_Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				Player1_Frame.setTitle("Player 1");
 				
@@ -87,7 +86,7 @@ public class GUIView implements IView
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						
-						if(model.getPlayer() == 1)
+
 						controller.doAutomatedMove(1);
 						
 					}
@@ -171,14 +170,14 @@ public class GUIView implements IView
 				JButton button4 = new JButton("Restart");
 				JPanel panel3 = new JPanel();
 				JPanel panel4 = new JPanel();
-//				player2lbl = new JLabel("Black player – not your turn");
+
 			
 				button3.addActionListener(new ActionListener() 
 				{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						
-						if(model.getPlayer() == 2)
+
 						controller.doAutomatedMove(2);
 						
 						

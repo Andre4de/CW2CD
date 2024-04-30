@@ -42,6 +42,8 @@ public class ReversiController implements IController {
 		
 		model.initialise(8, 8, view, this);
 
+		//setting board pieces
+		
 		model.setBoardContents(3,3, 2);
 	
 		model.setBoardContents(4,4, 2);
@@ -50,9 +52,13 @@ public class ReversiController implements IController {
 
 		model.setBoardContents(4,3, 1);
 		
+		//set player to player 1
+		
 		model.setPlayer(1);
 		
 		model.setFinished(false);
+		
+		//setting players one and two's ability to NOT play to false.
 		
 		one = false;
 		
@@ -83,7 +89,27 @@ public class ReversiController implements IController {
 		
 		view.refreshView();
 		
+		outer:	
+		for(int i = 0; i < model.getBoardHeight(); i++) {
+					
+					for(int j = 0; j < model.getBoardWidth(); j++) {
+						
+						if(model.getBoardContents(i, j) != 0) {
+							model.setFinished(true);
+							
+
+							}
+						if(model.getBoardContents(i, j) == 0) {
+							model.setFinished(false);
+							break outer;
+						}
+							
+					}
+				}
+		
+		//if the game has finished, count how many counters and change feedback message
 		if(model.hasFinished() == true) {
+			
 			for(int i = 0; i < model.getBoardHeight(); i++) {
 				
 				for(int j = 0; j < model.getBoardWidth(); j++) {
@@ -97,6 +123,7 @@ public class ReversiController implements IController {
 				}
 			}
 			
+			//all possible outcomes of the came...
 			if(white > black) {
 
 				view.feedbackToUser(1, "White won. White " + white + " to Black " + black + "." +  "Reset game to replay.");
@@ -111,66 +138,13 @@ public class ReversiController implements IController {
 			
 			if(white == black) {
 
-			view.feedbackToUser(1, "Draw. Both players ended with " + white + "pieces. Reset game to replay.");
-			view.feedbackToUser(2, "Draw. Both players ended with " + black + "pieces. Reset game to replay.");
+			view.feedbackToUser(1, "Draw. Both players ended with " + white + " pieces. Reset game to replay.");
+			view.feedbackToUser(2, "Draw. Both players ended with " + black + " pieces. Reset game to replay.");
 			}
 			
 			return;
 		}
-		
-	outer:	
-	for(int i = 0; i < model.getBoardHeight(); i++) {
-			
-			for(int j = 0; j < model.getBoardWidth(); j++) {
-				
-				if(model.getBoardContents(i, j) != 0) {
-					model.setFinished(true);
-					
 
-					}
-				if(model.getBoardContents(i, j) == 0) {
-					model.setFinished(false);
-					break outer;
-				}
-					
-			}
-		}
-	
-		
-		if(model.hasFinished() == true) {
-
-		
-		for(int i = 0; i < model.getBoardHeight(); i++) {
-			
-			for(int j = 0; j < model.getBoardWidth(); j++) {
-				
-				if(model.getBoardContents(i, j) == 1)
-					white++;
-				
-				if(model.getBoardContents(i, j) == 2)
-					black++;
-				
-			}
-		}
-		
-		if(white > black) {
-			view.feedbackToUser(1, "White won. White " + white + " to Black " + black + "." +  "Reset game to replay.");
-			view.feedbackToUser(2, "White won. White " + white + " to Black " + black + "." +  "Reset game to replay.");
-		}
-		
-		if(white < black) {
-
-		view.feedbackToUser(1, "Black won. Black " + black + " to White " + white + "." +  "Reset game to replay.");
-		view.feedbackToUser(2, "Black won. Black " + black + " to White " + white + "." +  "Reset game to replay.");
-		}
-		
-		if(white == black) {
-		view.feedbackToUser(1, "Draw. Both players ended with " + white + "pieces. Reset game to replay.");
-		view.feedbackToUser(2, "Draw. Both players ended with " + black + "pieces. Reset game to replay.");
-		}
-		
-		return;
-		}
 		
 	
 		
@@ -596,6 +570,10 @@ public class ReversiController implements IController {
 	if(model.hasFinished()) 
 		return;
 	
+	if(player != model.getPlayer()) {
+		view.feedbackToUser(player, "It is not your turn!");
+		return;
+		}
 	
 	 for(a = 0; a < model.getBoardHeight(); a++) {
 		 
