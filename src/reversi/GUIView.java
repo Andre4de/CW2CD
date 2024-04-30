@@ -87,7 +87,7 @@ public class GUIView implements IView
 					public void actionPerformed(ActionEvent e) {
 						
 
-						controller.doAutomatedMove(1);
+						controller.doAutomatedMove(model.getPlayer());
 						
 					}
 				});
@@ -140,7 +140,7 @@ public class GUIView implements IView
 				    @Override
 	                public void actionPerformed(ActionEvent e)
 				    {
-	                    model.clear(3);
+	                    model.clear(0);
 	                    refreshView();
 	                    controller.startup();
 	                   
@@ -178,7 +178,7 @@ public class GUIView implements IView
 					public void actionPerformed(ActionEvent e) {
 						
 
-						controller.doAutomatedMove(2);
+						controller.doAutomatedMove(model.getPlayer());
 						
 						
 					}
@@ -314,7 +314,7 @@ public class GUIView implements IView
 				}
 				
 				
-				if(model.getBoardContents(i, j) == 3)
+				if(model.getBoardContents(i, j) == 0)
 				{	
 					//
 					Board1[i][j].drawGreen();
@@ -329,7 +329,7 @@ public class GUIView implements IView
 		}
 		
 		if(model.getPlayer() == 1) {
-			feedbackToUser(1, "White player – choose where to put your piece.");
+			feedbackToUser(1, "White player – choose where to put your piece");
 			feedbackToUser(2, "Black player – not your turn");
 
 			

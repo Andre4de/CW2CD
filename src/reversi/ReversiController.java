@@ -19,8 +19,7 @@ public class ReversiController implements IController {
 	boolean two = false;
 	int dirX = 0;
 	int dirY = 0;
-	int highX = 0;
-	int highY = 0;
+	
 	
 	
 
@@ -45,13 +44,15 @@ public class ReversiController implements IController {
 
 		//setting board pieces
 		
-		model.setBoardContents(3,3, 2);
+		model.setBoardContents(3,3, 1);
 	
-		model.setBoardContents(4,4, 2);
+		model.setBoardContents(4,4, 1);
 
-		model.setBoardContents(3,4, 1);
+		model.setBoardContents(3,4, 2);
 
-		model.setBoardContents(4,3, 1);
+		model.setBoardContents(4,3, 2);
+		
+		
 		
 		//set player to player 1
 		
@@ -195,14 +196,14 @@ public class ReversiController implements IController {
 							l = j;
 							
 							
-								while((k > 0 || k <= 7) || (l > 0 || l <= 7)) {
+								while((k > 0 || k < model.getBoardHeight()) || (l > 0 || l < model.getBoardWidth())) {
 									
 									k += dirX;
 									l += dirY;
 									
 									
 									
-									if((k < 0 || k > 7) || (l < 0 || l > 7))
+									if((k < 0 || k >= model.getBoardHeight()) || (l < 0 || l >= model.getBoardWidth()))
 									break;
 									
 									
@@ -210,6 +211,7 @@ public class ReversiController implements IController {
 									{
 										
 										one = false;
+										model.setFinished(false);
 										return;
 									}
 									
@@ -254,7 +256,7 @@ public class ReversiController implements IController {
 					
 					for(int b = j - 1; b < j + 2; b++) {
 						
-						if((a < 0 || a > 7) || (b < 0 || b > 7))
+						if((a < 0 || a >= model.getBoardHeight()) || (b < 0 || b >= model.getBoardWidth()))
 							continue;
 						
 						if(a == i && b == j) {
@@ -277,20 +279,21 @@ public class ReversiController implements IController {
 							l = j;
 							
 							
-								while((k > 0 || k <= 7) || (l > 0 || l <= 7)) {
+								while((k > 0 || k < model.getBoardHeight()) || (l > 0 || l < model.getBoardWidth())) {
 									
 									k += dirX;
 									l += dirY;
 									
 									
 									
-									if((k < 0 || k > 7) || (l < 0 || l > 7))
+									if((k < 0 || k >= model.getBoardHeight()) || (l < 0 || l >= model.getBoardWidth()))
 									break;
 									
 									
 									if(model.getBoardContents(k, l) == model.getPlayer())
 									{	
 										two = false;
+										model.setFinished(false);
 										return;
 									}
 									
@@ -364,7 +367,7 @@ public class ReversiController implements IController {
 				for(j = y - 1; j < y + 2; j++) {
 					
 					//this if statements prevents an array out of bounds error
-					if((i < 0 || i > 7) || (j < 0 || j > 7))
+					if((i < 0 || i >= model.getBoardHeight()) || (j < 0 || j >= model.getBoardWidth()))
 						continue;
 					
 					
@@ -389,21 +392,21 @@ public class ReversiController implements IController {
 						
 						
 						whileloop:
-						while((k > 0 || k <= 7) || (l > 0 || l <= 7)) {
+						while((k > 0 || k < model.getBoardHeight()) || (l > 0 || l < model.getBoardWidth())) {
 							
 							k += dirX;
 							l += dirY;
 							
 							
 							
-							if((k < 0 || k > 7) || (l < 0 || l > 7))
+							if((k < 0 || k >= model.getBoardHeight()) || (l < 0 || l >= model.getBoardWidth()))
 							break;
 							
 							
 							if(model.getBoardContents(k, l) == 1)
 							{
 								
-								while((m > 0 || m <= 7) || (n > 0 || n <= 7)) {
+								while((m > 0 || m < model.getBoardHeight()) || (n > 0 || n < model.getBoardWidth())) {
 									model.setBoardContents(m, n, 1);
 									
 									
@@ -456,7 +459,7 @@ public class ReversiController implements IController {
 			for(j = y - 1; j < y + 2; j++) {
 				
 				//this if statements prevents an array out of bounds error
-				if((i < 0 || i > 7) || (j < 0 || j > 7))
+				if((i < 0 || i >= model.getBoardHeight()) || (j < 0 || j >= model.getBoardWidth()))
 					continue;
 				
 				
@@ -480,21 +483,21 @@ public class ReversiController implements IController {
 					
 				
 					whileloop2:
-					while((k > 0 || k <= 7) || (l > 0 || l <= 7)) {
+					while((k > 0 || k < model.getBoardHeight()) || (l > 0 || l < model.getBoardWidth())) {
 						
 						k += dirX;
 						l += dirY;
 						
 					
 						
-						if((k < 0 || k > 7) || (l < 0 || l > 7))
+						if((k < 0 || k >= model.getBoardHeight()) || (l < 0 || l >= model.getBoardWidth()))
 						break;
 						
 						
 						if(model.getBoardContents(k, l) == 2)
 						{
 							
-							while((m > 0 || m <= 7) || (n > 0 || n <= 7)) {
+							while((m > 0 || m < model.getBoardHeight()) || (n > 0 || n < model.getBoardWidth())) {
 								model.setBoardContents(m, n, 2);
 								
 								m += dirX;
@@ -539,131 +542,68 @@ public class ReversiController implements IController {
 	
 	@Override
 	public void doAutomatedMove(int player) {
-		// TODO Auto-generated method stub
-	int opp = 0;
-	int count = 0;
+	    if (model.hasFinished()) 
+	        return;
 
-	if(player == 1)
-		opp = 2;
-	
-	if(player == 2)
-		opp = 1;
-		
-	if(model.hasFinished()) 
-		return;
-	
-	if(player != model.getPlayer()) {
-		view.feedbackToUser(player, "It is not your turn!");
-		return;
-		}
-	
-	 for(a = 0; a < model.getBoardHeight(); a++) {
-		 
-		 for(b = 0; b < model.getBoardWidth(); b++) {
-			 
-			 int tmp1 = 0;
-			 int tmp2 = 0;
-			 
-			 if(model.getBoardContents(a, b) == 0) {
-			 
-				for(i = a - 1; i < a + 2; i++) {
-					
-					for(j = b - 1; j < b + 2; j++) {
-						
-						
-						
-						//this if statements prevents an array out of bounds error
-						if((i < 0 || i > 7) || (j < 0 || j > 7))
-							continue;
-						
-						
-						
-//					
-						if(i == x && j == y)
-						continue;
+	    int opp = (player == 1) ? 2 : 1;
+	    int highX = 0, highY = 0;
+	    int maxCount = 0;
 
-						//This if statement scans the perimeter of selecteed square and looks for counter of opposite colour.
-						if(model.getBoardContents(i, j) == opp) {
-						
-							
-							int dirX = i - a;
-							int dirY = j - b;
-//			
-							k = i;
-							l = j;
-							
-							m = i;
-							n = j;
-							
-							
-							whileloop:
-							while((k > 0 || k <= 7) || (l > 0 || l <= 7)) {
-							
-							
-								k += dirX;
-								l += dirY;
-								
-								
-//								
-								tmp1++;
-								
-								
-								
-								
-								if((k < 0 || k > 7) || (l < 0 || l > 7))
-								break;
-								
-//							
-								if(model.getBoardContents(k, l) == player)
-								{
-									tmp2 = tmp1;
-									
-									if(tmp2 > count) {
-										count = tmp2;
-										highX = a;
-										highY = b;
-										
-										break whileloop;
-										
-									}
-									
-								}
-							}
-							
-							
+	    for (int a = 0; a < model.getBoardHeight(); a++) {
+	    	
+	        for (int b = 0; b < model.getBoardWidth(); b++) {
+	        	
+	        	
+	            if (model.getBoardContents(a, b) == 0) {
+	                for (int i = -1; i <= 1; i++) {
+	                	
+	                    for (int j = -1; j <= 1; j++) {
+	                    	
+	                        if (i == 0 && j == 0)
+	                            continue;
 
-							
+	                        int count = getCountInDirection(player, opp, a, b, i, j);
+	                        
+	                        if (count > maxCount) {
+	                            maxCount = count;
+	                            highX = a;
+	                            highY = b;
+	                        }
+	                    }
+	                
+	                
+	                }
+	            
+	            
+	            	}
+	        	}
+	    }
 
-						}
-						
-
-				
-				}
-				
-				}
-			 
-		 }
-				
-				
-			 
-		 }
-	 }
-//		
-		if(player == 1) {
-			
-			squareSelected(1, highX, highY);
-			
-			
-		}
-		
-		if(player == 2) {
-			
-			squareSelected(2, highX, highY);
-			
-			
-		}
-		
-		
+	    squareSelected(player, highX, highY);
 	}
+
+	private int getCountInDirection(int player, int opp, int startX, int startY, int dirX, int dirY) {
+		
+	    int count = 0;
+	    int x = startX + dirX;
+	    int y = startY + dirY;
+
+	    while (x >= 0 && x < model.getBoardHeight() && y >= 0 && y < model.getBoardWidth()) {
+	    	
+	        if (model.getBoardContents(x, y) == opp) {
+	        	
+	            count++;
+	            x += dirX;
+	            y += dirY;
+	        } else if (model.getBoardContents(x, y) == player) {
+	            return count;
+	        } else {
+	            return 0; // Empty square, stop counting
+	        }
+	    }
+
+	    return 0; // Reached the edge of the board, stop counting
+	}
+
 
 }

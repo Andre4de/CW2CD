@@ -46,7 +46,7 @@ public class TestYourController extends SimpleModel implements IView
 	JTextArea board2 = new JTextArea();
 	JFrame frame1 = new JFrame();
 
-
+	
 	
 	@Override
 	public void initialise(IModel model, IController controller)
@@ -57,6 +57,7 @@ public class TestYourController extends SimpleModel implements IView
 		// Create a dummy user interface - you need to do a proper one in your
 		// implementation
 		// You will need 2 frames but I put only one into the demo
+		
 		frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame1.setTitle("Test program - based upon FakeTextView and SimpleTestModel");
@@ -787,7 +788,7 @@ public class TestYourController extends SimpleModel implements IView
 		IModel model = testObject;
 		IView view = testObject;
 
-		IController controller = null; // new ReversiController(); CHANGE THIS
+		IController controller = new ReversiController(); // new ReversiController(); CHANGE THIS
 
 		// Initialise everything...
 		model.initialise(8, 8, view, controller);

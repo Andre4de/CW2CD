@@ -166,7 +166,8 @@ public class TestYourGUIView extends SimpleModel implements IController
 		IModel model = tester;
 
 		// Need to test student's GUI view
-		IView view = null; // new GUIView(); // CHANGE THIS
+		
+		IView view = new GUIView();
 		
 		IController controller = tester;
 		
