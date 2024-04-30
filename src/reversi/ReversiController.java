@@ -90,6 +90,9 @@ public class ReversiController implements IController {
 		
 		view.refreshView();
 		
+		if(one == true && two == true)
+			model.setFinished(true);
+		
 		outer:	
 		if(model.hasFinished() == false) {
 		for(int i = 0; i < model.getBoardHeight(); i++) {
@@ -233,6 +236,7 @@ public class ReversiController implements IController {
 		model.setPlayer(2);
 		view.feedbackToUser(2, "Black player – choose where to put your piece");
 		view.feedbackToUser(1, "White player – not your turn");
+		update();
 
 		return;
 		}
@@ -309,12 +313,14 @@ public class ReversiController implements IController {
 			}
 			}
 		}
-		System.out.println("Player 2 can go = " + two);
+		
 		two = true;
+	
 		
 		model.setPlayer(1);
 		view.feedbackToUser(1, "White player – choose where to put your piece");
 		view.feedbackToUser(2, "Black player – not your turn");
+		update();
 
 		return;
 		}
@@ -322,44 +328,10 @@ public class ReversiController implements IController {
 	
 		
 		
-		if(one == true && two == true)
-			model.setFinished(true);
 		
 		
-		if(model.hasFinished() == true) {
-			for(int i = 0; i < model.getBoardHeight(); i++) {
-				
-				for(int j = 0; j < model.getBoardWidth(); j++) {
-					
-					if(model.getBoardContents(i, j) == 1)
-						white++;
-					
-					if(model.getBoardContents(i, j) == 2)
-						black++;
-					
-				}
-			}
-			
-			if(white > black) {
-			
-				
-				view.feedbackToUser(1, "White won. White " + white + " to Black " + black + "." +  " Reset game to replay.");
-				view.feedbackToUser(2, "White won. White " + white + " to Black " + black + "." +  " Reset game to replay.");
-			}	
-			
-			if(white < black) {
-				
-			view.feedbackToUser(1, "Black won. Black " + black + " to White " + white + "." +  " Reset game to replay.");
-			view.feedbackToUser(1, "Black won. Black " + black + " to White " + white + "." +  " Reset game to replay.");
-			}
-			if(white == black) {
-				
-			view.feedbackToUser(1, "Draw. Both players ended with " + white + " pieces. Reset game to replay.");
-			view.feedbackToUser(2, "Draw. Both players ended with " + black + " pieces. Reset game to replay.");
-			}
-			
-			return;
-		}
+		
+
 		
 		
 		
