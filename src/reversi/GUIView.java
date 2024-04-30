@@ -113,22 +113,18 @@ public class GUIView implements IView
 						    @Override
 			                public void actionPerformed(ActionEvent e)
 						    {
-						    	if(model.getPlayer() != 1) {
-						    		System.out.println("It is not your turn!");
-						    		return;
-						    	}
-//			                    Your action listener code here
-//			                    You can use 'row' and 'col' to reference the coordinates of the button clicked
-			                   
 						    	if(model.hasFinished()) {
-						    		System.out.println("The Game has finished");
 						    		return;
 						    	}
+						    	
+
+			                   
+						    	
 						    	
 						    	controller.squareSelected(1, row, col);
 			              
 			                    
-			                    System.out.println("Value of current square = " + model.getBoardContents(row, col));
+			                    
 			                   
 			                    
 			                    
@@ -146,7 +142,6 @@ public class GUIView implements IView
 	                public void actionPerformed(ActionEvent e)
 				    {
 	                    model.clear(3);
-	                    System.out.println("Board 1 clicked");
 	                    refreshView();
 	                    controller.startup();
 	                   
@@ -221,25 +216,19 @@ public class GUIView implements IView
 						    @Override
 			                public void actionPerformed(ActionEvent e)
 						    {
-						    	System.out.println("Player 2 clicked square: " + row + ";" + col);
-						    	if(model.getPlayer() == 1) {
-						    		System.out.println("It is not your turn!");
-						    		return;
-						    	}
-			                    // Your action listener code here
-			                    // You can use 'row' and 'col' to reference the coordinates of the button clicked
-			                   // System.out.println("Button clicked at coordinates: (" + row + ", " + col + ")");
-						    	
 						    	if(model.hasFinished()) {
-						    		System.out.println("The Game has finished");
 						    		return;
 						    	}
+						    	
+
+						    	
+						    	
 						    	
 			                    controller.squareSelected(2, row, col);
 
 			                    model.getBoardContents(row, col);
 			                    
-			                    System.out.println("Value of current square = " + model.getBoardContents(row, col));
+			                    
 			                    
 			                   
 			                    
@@ -257,7 +246,7 @@ public class GUIView implements IView
 				    {
 	                    model.clear(3);
 	                    
-	                    System.out.println("Board 2 clicked");
+	                    
 
 	                   
 	                    refreshView();
@@ -328,7 +317,7 @@ public class GUIView implements IView
 				
 				if(model.getBoardContents(i, j) == 3)
 				{	
-					//System.out.println("DrawGr is execute");
+					//
 					Board1[i][j].drawGreen();
 					Board2[i][j].drawGreen();
 
@@ -343,16 +332,14 @@ public class GUIView implements IView
 		if(model.getPlayer() == 1) {
 			feedbackToUser(1, "White player – choose where to put your piece.");
 			feedbackToUser(2, "Black player – not your turn");
-//			player1lbl.setText("White player – choose where to put your piece.");
-//			player2lbl.setText("Black player – not your turn");
+
 			
 		}
 		
 		if(model.getPlayer() == 2) {
 			feedbackToUser(2, "Black player – choose where to put your piece");
 			feedbackToUser(1, "White player – not your turn");
-//			player2lbl.setText("Black player – choose where to put your piece");
-//			player1lbl.setText("White player – not your turn");
+
 			
 		}
 		
@@ -365,8 +352,7 @@ public class GUIView implements IView
 	@Override
 	public void feedbackToUser(int player, String message) {
 		// TODO Auto-generated method stub
-//		String plyr = "Player ";
-//		System.out.println("player " + player +  message);
+
 		if(player == 1) {
 			
 			player1lbl.setText(message);
@@ -452,12 +438,8 @@ public class GUIView implements IView
 		}
 	
 		
-//		public void reset()
-//		{
-//			this.OppColor = sqrCol;
-//			this.PlayerColor = sqrCol;
-//			repaint();
-//		}
+
+
 		
 		public Color getDrawColor()
 		{

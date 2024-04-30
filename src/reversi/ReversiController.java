@@ -54,6 +54,10 @@ public class ReversiController implements IController {
 		
 		model.setFinished(false);
 		
+		one = false;
+		
+		two = false;
+		
 		view.refreshView();
 //		update();
 		
@@ -94,19 +98,19 @@ public class ReversiController implements IController {
 			}
 			
 			if(white > black) {
-				System.out.println("White has won");
+
 				view.feedbackToUser(1, "White won. White " + white + " to Black " + black + "." +  "Reset game to replay.");
 				view.feedbackToUser(2, "White won. White " + white + " to Black " + black + "." +  "Reset game to replay.");
 			}
 			
 			if(white < black) {
-				System.out.println("Black has won");
+
 			view.feedbackToUser(1, "Black won. Black " + black + " to White " + white + "." +  "Reset game to replay.");
 			view.feedbackToUser(2, "Black won. Black " + black + " to White " + white + "." +  "Reset game to replay.");
 			}
 			
 			if(white == black) {
-				System.out.println("It is a draw!");
+
 			view.feedbackToUser(1, "Draw. Both players ended with " + white + "pieces. Reset game to replay.");
 			view.feedbackToUser(2, "Draw. Both players ended with " + black + "pieces. Reset game to replay.");
 			}
@@ -126,7 +130,6 @@ public class ReversiController implements IController {
 					}
 				if(model.getBoardContents(i, j) == 0) {
 					model.setFinished(false);
-					System.out.println("Model has said there is a green square");
 					break outer;
 				}
 					
@@ -135,7 +138,7 @@ public class ReversiController implements IController {
 	
 		
 		if(model.hasFinished() == true) {
-		System.out.println("The game has finished!");
+
 		
 		for(int i = 0; i < model.getBoardHeight(); i++) {
 			
@@ -151,19 +154,17 @@ public class ReversiController implements IController {
 		}
 		
 		if(white > black) {
-			System.out.println("White has won");
 			view.feedbackToUser(1, "White won. White " + white + " to Black " + black + "." +  "Reset game to replay.");
 			view.feedbackToUser(2, "White won. White " + white + " to Black " + black + "." +  "Reset game to replay.");
 		}
 		
 		if(white < black) {
-			System.out.println("Black has won");
+
 		view.feedbackToUser(1, "Black won. Black " + black + " to White " + white + "." +  "Reset game to replay.");
 		view.feedbackToUser(2, "Black won. Black " + black + " to White " + white + "." +  "Reset game to replay.");
 		}
 		
 		if(white == black) {
-			System.out.println("It is a draw!");
 		view.feedbackToUser(1, "Draw. Both players ended with " + white + "pieces. Reset game to replay.");
 		view.feedbackToUser(2, "Draw. Both players ended with " + black + "pieces. Reset game to replay.");
 		}
@@ -184,7 +185,7 @@ public class ReversiController implements IController {
 			
 			for(int j = 0; j < model.getBoardWidth(); j++) {
 				
-//				System.out.println("Current square = " + i + ":" + j);
+//				
 				
 				for(int a = i - 1; a < i + 2; a++) {
 					
@@ -198,13 +199,10 @@ public class ReversiController implements IController {
 						}
 						
 						
-						else {
-							
-//							System.out.println(a + ":" + b);
-						}
+						
 						
 						if(model.getBoardContents(a, b) == opp) {
-//							System.out.println(a + ":" + b + " = " + opp);
+//							
 							
 							int dirX = a - i;
 							int dirY = b - j;
@@ -227,7 +225,7 @@ public class ReversiController implements IController {
 									
 									if(model.getBoardContents(k, l) == model.getPlayer())
 									{
-										System.out.println("Player"  + model.getPlayer() +  " is able to play, no need to switch player.");
+										
 										one = false;
 										return;
 									}
@@ -251,7 +249,7 @@ public class ReversiController implements IController {
 			}
 		}
 		one = true;
-		System.out.println("Player" + model.getPlayer() + " is not able to play, switching player.");
+		
 		model.setPlayer(2);
 		view.feedbackToUser(2, "Black player – choose where to put your piece");
 		view.feedbackToUser(1, "White player – not your turn");
@@ -265,7 +263,7 @@ public class ReversiController implements IController {
 			
 			for(int j = 0; j < model.getBoardWidth(); j++) {
 				
-//				System.out.println("Current square = " + i + ":" + j);
+//				
 				
 				for(int a = i - 1; a < i + 2; a++) {
 					
@@ -279,13 +277,10 @@ public class ReversiController implements IController {
 						}
 						
 						
-//						else {
-//							
-////							System.out.println(a + ":" + b);
-//						}
+//						
 						
 						if(model.getBoardContents(a, b) == opp) {
-//							System.out.println(a + ":" + b + " = " + opp);
+//							
 							
 							int dirX = a - i;
 							int dirY = b - j;
@@ -308,7 +303,7 @@ public class ReversiController implements IController {
 									
 									if(model.getBoardContents(k, l) == model.getPlayer())
 									{
-										System.out.println("Player"  + model.getPlayer() +  " is able to play, no need to switch player.");
+										
 										two = false;
 										return;
 									}
@@ -332,9 +327,9 @@ public class ReversiController implements IController {
 			}
 		}
 		two = true;
-		System.out.println("Player" + model.getPlayer() + " is not able to play, switching player.");
+		
 		model.setPlayer(1);
-		view.feedbackToUser(1, "White player – choose where to put your piece.");
+		view.feedbackToUser(1, "White player – choose where to put your piece");
 		view.feedbackToUser(2, "Black player – not your turn");
 
 		return;
@@ -345,7 +340,7 @@ public class ReversiController implements IController {
 		
 		if(one == true && two == true)
 			model.setFinished(true);
-		System.out.println("value of has finished: " + model.hasFinished());
+		
 		
 		if(model.hasFinished() == true) {
 			for(int i = 0; i < model.getBoardHeight(); i++) {
@@ -363,18 +358,18 @@ public class ReversiController implements IController {
 			
 			if(white > black) {
 			
-				System.out.println("White has won");
+				
 				view.feedbackToUser(1, "White won. White " + white + " to Black " + black + "." +  "Reset game to replay.");
 				view.feedbackToUser(2, "White won. White " + white + " to Black " + black + "." +  "Reset game to replay.");
 			}	
 			
 			if(white < black) {
-				System.out.println("Black has won");
+				
 			view.feedbackToUser(1, "Black won. Black " + black + " to White " + white + "." +  "Reset game to replay.");
 			view.feedbackToUser(1, "Black won. Black " + black + " to White " + white + "." +  "Reset game to replay.");
 			}
 			if(white == black) {
-				System.out.println("It is a draw!");
+				
 			view.feedbackToUser(1, "Draw. Both players ended with " + white + "pieces. Reset game to replay.");
 			view.feedbackToUser(2, "Draw. Both players ended with " + black + "pieces. Reset game to replay.");
 			}
@@ -391,15 +386,17 @@ public class ReversiController implements IController {
 		this.player = player;
 		this.x = x;
 		this.y = y;
-		int count = 0;
 		
 		
+		if(model.getPlayer() != player) {
+			view.feedbackToUser(player, "It is not your turn!");
+			return;
+		}
 		
 		if(player == 1)
 		{
 			
 			if(model.getBoardContents(x, y) == 1) {
-				System.out.println("You already have a counter in this square.");
 				return;
 				}
 			
@@ -415,7 +412,7 @@ public class ReversiController implements IController {
 						continue;
 					
 					
-//					System.out.println("(Scan: )" + i + ":" + j + "=" + model.getBoardContents(i, j));
+//					
 					if(i == x && j == y)
 					continue;
 
@@ -452,7 +449,7 @@ public class ReversiController implements IController {
 								
 								while((m > 0 || m <= 7) || (n > 0 || n <= 7)) {
 									model.setBoardContents(m, n, 1);
-									count++;
+									
 									
 									m += dirX;
 									n += dirY;
@@ -471,7 +468,7 @@ public class ReversiController implements IController {
 						model.setPlayer(2);
 						update();
 						
-						System.out.println("White Count = " + count);
+
 						
 
 						
@@ -494,7 +491,7 @@ public class ReversiController implements IController {
 		{
 			
 			if(model.getBoardContents(x, y) == 2) {
-				System.out.println("You already have a counter in this square.");
+				
 				return;
 				}	
 		//this for loop scans the perimeter of the selected square, looks for 8 squares maximum.
@@ -507,7 +504,7 @@ public class ReversiController implements IController {
 					continue;
 				
 				
-				//System.out.println("(Scan: )" + i + ":" + j + "=" + model.getBoardContents(i, j));
+				
 				if(i == x && j == y)
 				continue;
 
@@ -543,7 +540,7 @@ public class ReversiController implements IController {
 							
 							while((m > 0 || m <= 7) || (n > 0 || n <= 7)) {
 								model.setBoardContents(m, n, 2);
-								count++;
+								
 								m += dirX;
 								n += dirY;
 								
@@ -562,7 +559,7 @@ public class ReversiController implements IController {
 					
 					model.setPlayer(1);
 					update();
-					System.out.println("Black Count = " + count);
+
 					
 
 					
@@ -596,6 +593,8 @@ public class ReversiController implements IController {
 	if(player == 2)
 		opp = 1;
 		
+	if(model.hasFinished()) 
+		return;
 	
 	
 	 for(a = 0; a < model.getBoardHeight(); a++) {
@@ -619,7 +618,7 @@ public class ReversiController implements IController {
 						
 						
 						
-//						System.out.println("(Scan: )" + i + ":" + j + "=" + model.getBoardContents(i, j));
+//					
 						if(i == x && j == y)
 						continue;
 
@@ -629,7 +628,7 @@ public class ReversiController implements IController {
 							
 							int dirX = i - a;
 							int dirY = j - b;
-//							System.out.println("Dixr = " + dirX + " " + "diry = " + dirY);
+//			
 							k = i;
 							l = j;
 							
@@ -645,7 +644,7 @@ public class ReversiController implements IController {
 								l += dirY;
 								
 								
-//								System.out.println()
+//								
 								tmp1++;
 								
 								
@@ -654,11 +653,7 @@ public class ReversiController implements IController {
 								if((k < 0 || k > 7) || (l < 0 || l > 7))
 								break;
 								
-//								System.out.println("k and l: " + k + ":" + l);
-//								System.out.println("direction: " + model.getBoardContents(k, l));
-								
-								
-//								System.out.println(k + ":" + l + "=" + model.getBoardContents(k, l));
+//							
 								if(model.getBoardContents(k, l) == player)
 								{
 									tmp2 = tmp1;
@@ -696,16 +691,16 @@ public class ReversiController implements IController {
 			 
 		 }
 	 }
-//		System.out.println("Best square for player:" + model.getPlayer() + "=" + highX + ":" + highY);
+//		
 		if(player == 1) {
-			System.out.println("Player 1");
+			
 			squareSelected(1, highX, highY);
 			
 			
 		}
 		
 		if(player == 2) {
-			System.out.println("Player 2");
+			
 			squareSelected(2, highX, highY);
 			
 			
