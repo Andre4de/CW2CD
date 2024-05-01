@@ -91,8 +91,7 @@ public class ReversiController implements IController {
 		
 		view.refreshView();
 		
-		if(one == true && two == true)
-			model.setFinished(true);
+		
 		
 		outer:	
 		if(model.hasFinished() == false) {
@@ -155,9 +154,14 @@ public class ReversiController implements IController {
 
 		
 	
+if(one == true && two == true) {
+			
+			System.out.println("One and Two has been executed");
+			model.setFinished(true);
+			
+			}
 		
 		
-	
 		
 		
 		
@@ -234,7 +238,7 @@ public class ReversiController implements IController {
 			}
 		}
 		one = true;
-		
+		System.out.println("White player could not go.");
 		model.setPlayer(2);
 		view.feedbackToUser(2, "Black player – choose where to put your piece");
 		view.feedbackToUser(1, "White player – not your turn");
@@ -318,7 +322,7 @@ public class ReversiController implements IController {
 		}
 		
 		two = true;
-	
+		System.out.println("Black player could not go.");
 		
 		model.setPlayer(1);
 		view.feedbackToUser(1, "White player – choose where to put your piece");
